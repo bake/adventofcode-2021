@@ -64,7 +64,7 @@ class Grid
         foreach ($this->grid as $row) {
             foreach ($row as $value) {
                 [$light, $fg] = $value === 0 || $value >= 10 ? [0, 37] : [1, 30];
-                $str .= sprintf("\e[%d;%dm%d\e[0m", $light, $fg, $value % 100);
+                $str .= sprintf("\e[%d;%dm%d\e[0m", $light, $fg, $value % 10);
             }
             $str .= PHP_EOL;
         }
@@ -74,7 +74,7 @@ class Grid
 
 class OctopusGrid extends Grid
 {
-    private int $flashes;
+    private int $flashes = 0;
 
     public function step(): void
     {
@@ -90,7 +90,6 @@ class OctopusGrid extends Grid
 
     private function flash(int $x, int $y): self
     {
-        $this->flashes ??= 0;
         $this->flashes++;
         $this->set($x, $y, 0);
         foreach ($this->adjacent($x, $y) as [$x, $y]) {
