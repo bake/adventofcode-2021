@@ -1,12 +1,9 @@
 <?php
 
 /**
- * Today is a slow day. You need to give the program at least 2GB ram and a few
- * seconds to run.
- *
- * $ php -d memory_limit=2G main.php < input.txt
- *
- * Good enough.
+ * I started the day with a grid which was pretty slow and required a lot
+ * memory. It was later rewritten to work directly on the given poitns without
+ * creating a big nearly empty array.
  */
 
 function input($handle): array
@@ -19,85 +16,112 @@ function input($handle): array
   $folds = explode(PHP_EOL, trim($folds));
   $folds = array_map(fn (string $f): array => sscanf($f, 'fold along %c=%d'), $folds);
 
-  $width = max(array_column($points, 0));
-  $height = max(array_column($points, 1));
-  $grid = [];
-  for ($y = 0; $y <= $height; $y++) {
-    $grid[$y] ??= [];
-    for ($x = 0; $x <= $width; $x++) {
-      $grid[$y][$x] ??= [];
-      $grid[$y][$x] = in_array([$x, $y], $points);
-    }
-  }
-
-  return [$grid, $folds];
+  return [$points, $folds];
 }
 
-function sprint_grid(array $grid): string
+function fold_points(array $points, string $direction, int $index): array
+{
+  $tmp = [];
+  foreach ($points as [$x, $y]) {
+    [$x, $y] = match ($direction) {
+      'x' => [$index - abs($x - $index), $y],
+      'y' => [$x, $index - abs($y - $index)],
+    };
+    $tmp["$x,$y"] = [$x, $y];
+  }
+  return array_values($tmp);
+}
+
+function sprint_points(array $points): string
 {
   $str = '';
-  for ($y = 0; $y < count($grid); $y++) {
-    for ($x = 0; $x < count($grid[$y]); $x++) {
-      $str .= $grid[$y][$x] ? '##' : '..';
+  for ($y = 0; $y <= max(array_column($points, 1)); $y++) {
+    for ($x = 0; $x <= max(array_column($points, 0)); $x++) {
+      $str .= in_array([$x, $y], $points) ? '##' : '  ';
     }
     $str .= PHP_EOL;
   }
   return $str;
 }
 
-enum Direction
-{
-  case Clockwise;
-  case Counterclockwise;
-}
-
-function rotate(array $matrix, Direction $direction): array
-{
-  $matrix = match ($direction) {
-    Direction::Clockwise => $matrix,
-    Direction::Counterclockwise => array_map('array_reverse', $matrix),
-  };
-  return call_user_func_array('array_map', [-1 => null] + $matrix);
-}
-
-function fold(array $grid, string $direction, int $index): array
-{
-  $grid = match ($direction) {
-    'x' => rotate($grid, Direction::Counterclockwise),
-    'y' => $grid,
-  };
-
-  $a = array_slice($grid, 0, $index);
-  $b = array_slice($grid, $index + 1, count($grid) - $index - 1);
-  $b = array_reverse($b);
-
-  foreach (array_keys($a) as $y) {
-    foreach (array_keys($a[$y]) as $x) {
-      $a[$y][$x] = (bool) max($a[$y][$x], $b[$y][$x]);
-    }
-  }
-
-  return match ($direction) {
-    'x' => rotate($a, Direction::Clockwise),
-    'y' => $a,
-  };
-}
-
-function part1(array $grid, array $folds): int
+function part1(array $points, array $folds): int
 {
   [$direction, $index] = array_shift($folds);
-  $grid = fold($grid, $direction, $index);
-  return array_sum(array_map(fn (array $row) => array_sum($row), $grid));
+  $points = fold_points($points, $direction, $index);
+  return count($points);
 }
 
-function part2(array $grid, array $folds): string
+function part2(array $points, array $folds): string
 {
   foreach ($folds as [$direction, $index]) {
-    $grid = fold($grid, $direction, $index);
+    $points = fold_points($points, $direction, $index);
   }
-  return sprint_grid($grid);
+  return sprint_points($points);
 }
 
-[$grid, $folds] = input(STDIN);
-echo part1($grid, $folds) . PHP_EOL;
-echo part2($grid, $folds) . PHP_EOL;
+[$points, $folds] = input(STDIN);
+echo part1($points, $folds) . PHP_EOL;
+echo part2($points, $folds) . PHP_EOL;
+
+// function sprint_grid(array $grid): string
+// {
+//   $str = '';
+//   for ($y = 0; $y < count($grid); $y++) {
+//     for ($x = 0; $x < count($grid[$y]); $x++) {
+//       $str .= $grid[$y][$x] ? '##' : '  ';
+//     }
+//     $str .= PHP_EOL;
+//   }
+//   return $str;
+// }
+
+// function points_to_grid(array $points): array
+// {
+//   $grid = [];
+//   for ($y = 0; $y <= max(array_column($points, 1)); $y++) {
+//     $grid[$y] ??= [];
+//     for ($x = 0; $x <= max(array_column($points, 0)); $x++) {
+//       $grid[$y][$x] ??= [];
+//       $grid[$y][$x] = in_array([$x, $y], $points);
+//     }
+//   }
+//   return $grid;
+// }
+
+// enum Direction
+// {
+//   case Clockwise;
+//   case Counterclockwise;
+// }
+
+// function rotate_grid(array $matrix, Direction $direction): array
+// {
+//   $matrix = match ($direction) {
+//     Direction::Clockwise => $matrix,
+//     Direction::Counterclockwise => array_map('array_reverse', $matrix),
+//   };
+//   return call_user_func_array('array_map', [-1 => null] + $matrix);
+// }
+
+// function fold_grid(array $grid, string $direction, int $index): array
+// {
+//   $grid = match ($direction) {
+//     'x' => rotate_grid($grid, Direction::Counterclockwise),
+//     'y' => $grid,
+//   };
+
+//   $a = array_slice($grid, 0, $index);
+//   $b = array_slice($grid, $index + 1, count($grid) - $index - 1);
+//   $b = array_reverse($b);
+
+//   foreach (array_keys($a) as $y) {
+//     foreach (array_keys($a[$y]) as $x) {
+//       $a[$y][$x] = (bool) max($a[$y][$x], $b[$y][$x]);
+//     }
+//   }
+
+//   return match ($direction) {
+//     'x' => rotate_grid($a, Direction::Clockwise),
+//     'y' => $a,
+//   };
+// }
