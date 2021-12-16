@@ -2,6 +2,8 @@
 
 namespace Bake\AdventOfCode2021\Day15;
 
+use SplPriorityQueue;
+
 class Day15
 {
   public static function input($handle): Grid
@@ -13,34 +15,32 @@ class Day15
     return new Grid($grid);
   }
 
-  /** @return Grid[] */
-  private static function dijkstra(Grid $grid, Point $src, Point $dst): array
+  private static function dijkstra(Grid $grid, Point $src, Point $dst): int
   {
-    $ps = [$src];
+    $queue = new Queue;
+    $queue->setExtractFlags(SplPriorityQueue::EXTR_BOTH);
+    $queue->insert($src, 0);
     $dists = Grid::ofSize($grid->width(), $grid->height(), INF);
     $dists->set($src, 0);
-    $prevs = Grid::ofSize($grid->width(), $grid->height(), null);
-    while ($p = array_shift($ps)) {
-      // asort($ps);
+    while (!$queue->isEmpty()) {
+      ['data' => $p, 'priority' => $dist] = $queue->extract();
       foreach ($grid->adjacent($p) as $q) {
-        $dist = $dists->get($p) + $grid->get($q);
-        if ($dist >= $dists->get($q)) {
+        $d = $dist + $grid->get($q);
+        if ($d >= $dists->get($q)) {
           continue;
         }
-        $dists->set($q, $dist);
-        $prevs->set($q, $p);
-        $ps[] = $q;
+        $dists->set($q, $d);
+        $queue->insert($q, $d);
       }
     }
-    return [$dists, $prevs];
+    return $dists->get($dst);
   }
 
   public static function part1(Grid $grid): int
   {
     $src = new Point(0, 0);
     $dst = new Point($grid->width() - 1, $grid->height() - 1);
-    [$dists] = self::dijkstra($grid, $src, $dst);
-    return $dists->get($dst);
+    return self::dijkstra($grid, $src, $dst);
   }
 
   public static function part2(Grid $grid, $scale = 5): int
