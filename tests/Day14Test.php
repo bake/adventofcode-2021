@@ -26,11 +26,11 @@ test('day 14 sample', function (): void {
   [$pairs, $rules] = Day14::input($handle);
   expect(Day14::part1($pairs, $rules))->toBe(1588);
   expect(Day14::part2($pairs, $rules))->toBe(2188189693529);
-});
+})->group('day14', 'sample');
 
 test('day 14 input', function (): void {
   $handle = fopen('src/Day14/input.txt', 'r+');
   [$pairs, $rules] = Day14::input($handle);
   expect(Day14::part1($pairs, $rules))->toBe(3408);
   expect(Day14::part2($pairs, $rules))->toBe(3724343376942);
-});
+})->group('day14', 'input');

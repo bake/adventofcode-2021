@@ -15,7 +15,7 @@ test('day 12 sample', function (): void {
   $input = Day12::input($handle);
   expect(Day12::part1($input))->toBe(10);
   expect(Day12::part2($input))->toBe(36);
-});
+})->group('day12', 'sample');
 
 test('day 12 slightly larger sample', function (): void {
   $input = <<<PLAIN
@@ -37,7 +37,7 @@ test('day 12 slightly larger sample', function (): void {
   $input = Day12::input($handle);
   expect(Day12::part1($input))->toBe(19);
   expect(Day12::part2($input))->toBe(103);
-});
+})->group('day12', 'sample');
 
 test('day 12 even larger sample', function (): void {
   $input = <<<PLAIN
@@ -67,7 +67,7 @@ test('day 12 even larger sample', function (): void {
   $input = Day12::input($handle);
   expect(Day12::part1($input))->toBe(226);
   expect(Day12::part2($input))->toBe(3509);
-});
+})->group('day2', 'sample');
 
 test('day 12 input', function (): void {
   $handle = fopen('src/Day12/input.txt', 'r+');
@@ -75,4 +75,4 @@ test('day 12 input', function (): void {
   $input = Day12::input($handle);
   expect(Day12::part1($input))->toBe(5178);
   expect(Day12::part2($input))->toBe(130094);
-});
+})->group('day12', 'input');

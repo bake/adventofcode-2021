@@ -36,7 +36,7 @@ test('day 13 sample', function (): void {
   ##########
 
   TEXT);
-});
+})->group('day13', 'sample');
 
 test('day 13 input', function (): void {
   $handle = fopen('src/Day13/input.txt', 'r+');
@@ -51,4 +51,4 @@ test('day 13 input', function (): void {
   ##    ##  ##          ####    ##    ##  ##        ######    ########  ##    ##
 
   TEXT);
-});
+})->group('day13', 'input');

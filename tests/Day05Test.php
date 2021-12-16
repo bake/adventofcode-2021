@@ -18,11 +18,11 @@ test('day 5 sample', function (): void {
   $nums = [...Day05::input($handle)];
   expect(Day05::part1($nums))->toBe(5);
   expect(Day05::part2($nums))->toBe(12);
-});
+})->group('day5', 'sample');
 
 test('day 5 input', function (): void {
   $handle = fopen('src/Day05/input.txt', 'r+');
   $nums = [...Day05::input($handle)];
   expect(Day05::part1($nums))->toBe(5632);
   expect(Day05::part2($nums))->toBe(22213);
-});
+})->group('day5', 'input');

@@ -18,11 +18,11 @@ test('day 15 sample', function (): void {
   $grid = Day15::input($handle);
   expect(Day15::part1($grid))->toBe(40);
   expect(Day15::part2($grid))->toBe(315);
-});
+})->group('day15', 'sample');
 
-// test('day 15 input', function (): void {
-//   $handle = fopen('src/Day15/input.txt', 'r+');
-//   $grid = Day15::input($handle);
-//   expect(Day15::part1($grid))->toBe(398);
-//   expect(Day15::part2($grid))->toBe(2817);
-// });
+test('day 15 input', function (): void {
+  $handle = fopen('src/Day15/input.txt', 'r+');
+  $grid = Day15::input($handle);
+  expect(Day15::part1($grid))->toBe(398);
+  expect(Day15::part2($grid))->toBe(2817);
+})->group('day15', 'input');

@@ -18,11 +18,11 @@ test('day 11 sample', function (): void {
   $input = Day11::input($handle);
   expect(Day11::part1(clone $input))->toBe(1656);
   expect(Day11::part2(clone $input))->toBe(195);
-});
+})->group('day11', 'sample');
 
 test('day 11 input', function (): void {
   $handle = fopen('src/Day11/input.txt', 'r+');
   $input = Day11::input($handle);
   expect(Day11::part1(clone $input))->toBe(1697);
   expect(Day11::part2(clone $input))->toBe(344);
-});
+})->group('day11', 'input');

@@ -9,11 +9,11 @@ test('day 6 sample', function (): void {
   $nums = [...Day06::input($handle)];
   expect(Day06::part1($nums))->toBe(5934);
   expect(Day06::part2($nums))->toBe(26984457539);
-});
+})->group('day6', 'sample');
 
 test('day 6 input', function (): void {
   $handle = fopen('src/Day06/input.txt', 'r+');
   $nums = [...Day06::input($handle)];
   expect(Day06::part1($nums))->toBe(359999);
   expect(Day06::part2($nums))->toBe(1631647919273);
-});
+})->group('day6', 'input');
