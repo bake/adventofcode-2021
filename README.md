@@ -1,8 +1,8 @@
 # Advent of Code 2021
 
-AoC in PHP. [Again](https://github.com/bake/adventofcode-2020). Solutions
-usually contain input.txt and, if correct, output.txt.
+AoC in PHP. [Again](https://github.com/bake/adventofcode-2020).
 
 ```bash
-$ php main.php < input.txt
+$ composer install
+$ ./vendor/bin/pest
 ```

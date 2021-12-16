@@ -1,0 +1,19 @@
+{
+  "name": "bake/adventofcode-2021",
+  "description": "Advent of Code 2021 in PHP",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "Bake\\AdventOfCode2021\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "bake",
+      "email": "bake@192k.pw"
+    }
+  ],
+  "require-dev": {
+    "pestphp/pest": "^1.21"
+  }
+}
