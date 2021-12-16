@@ -4,5 +4,5 @@ AoC in PHP. [Again](https://github.com/bake/adventofcode-2020).
 
 ```bash
 $ composer install
-$ ./vendor/bin/pest
+$ composer test
 ```

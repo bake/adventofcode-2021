@@ -13,6 +13,9 @@
       "email": "bake@192k.pw"
     }
   ],
+  "scripts": {
+    "test": "pest"
+  },
   "require-dev": {
     "pestphp/pest": "^1.21"
   }
