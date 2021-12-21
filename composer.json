@@ -14,9 +14,10 @@
     }
   ],
   "scripts": {
-    "test": "pest"
+    "test": "pest --parallel"
   },
   "require-dev": {
-    "pestphp/pest": "^1.21"
+    "pestphp/pest": "^1.21",
+    "pestphp/pest-plugin-parallel": "^1.0"
   }
 }
