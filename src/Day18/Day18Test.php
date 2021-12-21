@@ -1,6 +1,6 @@
 <?php
 
-use Bake\AdventOfCode2021\Day18\Day18;
+namespace Bake\AdventOfCode2021\Day18;
 
 test('day 18 add', function (): void {
   expect(Day18::add('[[[[4,3],4],4],[7,[[8,4],9]]]', '[1,1]'))->toBe('[[[[0,7],4],[[7,8],[6,0]]],[8,1]]');

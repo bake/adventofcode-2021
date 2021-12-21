@@ -1,6 +1,6 @@
 <?php
 
-use Bake\AdventOfCode2021\Day02\Day02;
+namespace Bake\AdventOfCode2021\Day02;
 
 test('day 2 sample', function (): void {
   $handle = string_to_stream(<<<PLAIN

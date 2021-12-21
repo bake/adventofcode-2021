@@ -1,6 +1,6 @@
 <?php
 
-use Bake\AdventOfCode2021\Day16\Day16;
+namespace Bake\AdventOfCode2021\Day16;
 
 test('day 16 sample version 1', function (): void {
   $input = Day16::hexbin('8A004A801A8002F478');

@@ -1,6 +1,6 @@
 <?php
 
-use Bake\AdventOfCode2021\Day13\Day13;
+namespace Bake\AdventOfCode2021\Day13;
 
 test('day 13 sample', function (): void {
   $handle = string_to_stream(<<<PLAIN
@@ -28,21 +28,21 @@ test('day 13 sample', function (): void {
   PLAIN);
   [$points, $folds] = Day13::input($handle);
   expect(Day13::part1($points, $folds))->toBe(17);
-  expect(Day13::part2($points, $folds))->toBe(<<<TEXT
+  expect(Day13::part2($points, $folds))->toBe(<<<PLAIN
   ##########
   ##      ##
   ##      ##
   ##      ##
   ##########
 
-  TEXT);
+  PLAIN);
 })->group('day13', 'sample');
 
 test('day 13 input', function (): void {
   $handle = fopen('src/Day13/input.txt', 'r+');
   [$points, $folds] = Day13::input($handle);
   expect(Day13::part1($points, $folds))->toBe(716);
-  expect(Day13::part2($points, $folds))->toBe(<<<TEXT
+  expect(Day13::part2($points, $folds))->toBe(<<<PLAIN
   ######    ######      ####    ##    ##  ########  ######    ##        ######  
   ##    ##  ##    ##  ##    ##  ##  ##    ##        ##    ##  ##        ##    ##
   ##    ##  ##    ##  ##        ####      ######    ######    ##        ##    ##
@@ -50,5 +50,5 @@ test('day 13 input', function (): void {
   ##  ##    ##        ##    ##  ##  ##    ##        ##    ##  ##        ##  ##  
   ##    ##  ##          ####    ##    ##  ##        ######    ########  ##    ##
 
-  TEXT);
+  PLAIN);
 })->group('day13', 'input');
