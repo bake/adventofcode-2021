@@ -10,7 +10,7 @@ class Player
     public int $position,
     public readonly int $max_position = 10,
   ) {
-    $this->position %= 10;
+    $this->position %= $this->max_position;
   }
 
   public function move(int $steps): void
