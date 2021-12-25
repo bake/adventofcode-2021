@@ -10,6 +10,15 @@ class Point
   ) {
   }
 
+  public function move(Cell $cell): Point
+  {
+    return match ($cell) {
+      Cell::Empty => clone $this,
+      Cell::East => new Point($this->x + 1, $this->y),
+      Cell::South => new Point($this->x, $this->y + 1),
+    };
+  }
+
   public function plus(Point $p): Point
   {
     return new Point($this->x + $p->x, $this->y + $p->y);

@@ -15,7 +15,7 @@ class Day25
 
     foreach ($grid->each() as [$p, $cell]) {
       if ($cell !== Cell::East) continue;
-      $q = $cell->move($p);
+      $q = $p->move($cell);
       if ($grid->at($q) !== Cell::Empty) continue;
       $tmp->set($p, Cell::Empty);
       $tmp->set($q, $cell);
@@ -24,7 +24,7 @@ class Day25
 
     foreach ($grid->each() as [$p, $cell]) {
       if ($cell !== Cell::South) continue;
-      $q = $cell->move($p);
+      $q = $p->move($cell);
       if ($grid->at($q) !== Cell::Empty) continue;
       $tmp->set($p, Cell::Empty);
       $tmp->set($q, $cell);
