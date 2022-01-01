@@ -96,7 +96,7 @@ class Image
 
   public function lit(): int
   {
-    return array_sum(array_map(fn (array $row): int => count($row), $this->image));
+    return array_sum(array_map(count(...), $this->image));
   }
 
   public function __toString(): string

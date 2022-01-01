@@ -12,7 +12,7 @@ class Day19
     return array_map(function (string $scanner): Scanner {
       $beacons = explode(PHP_EOL, $scanner);
       $beacons = array_slice($beacons, 1);
-      $beacons = array_map(fn (string $b): Beacon => Beacon::fromString($b), $beacons);
+      $beacons = array_map(Beacon::fromString(...), $beacons);
       return new Scanner($beacons);
     }, $scanners);
   }
@@ -31,7 +31,7 @@ class Day19
           $diffs[] = $f->minus($t);
         }
       }
-      $diffs = array_map(fn (Beacon $b): string => $b, $diffs);
+      $diffs = array_map(strval(...), $diffs);
       $diffs = array_count_values($diffs);
       arsort($diffs);
       if (array_values($diffs)[0] < $threshold) {

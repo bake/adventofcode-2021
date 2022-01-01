@@ -9,7 +9,7 @@ class Day06
   {
     $nums = stream_get_contents($handle);
     $nums = explode(',', $nums);
-    $nums = array_map(fn ($n) => (int) $n, $nums);
+    $nums = array_map(intval(...), $nums);
     return $nums;
   }
 
