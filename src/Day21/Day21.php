@@ -25,8 +25,9 @@ class Day21
     return -1;
   }
 
-  private static function play(Player $p1, Player $p2, array &$cache = [])
+  private static function play(Player $p1, Player $p2)
   {
+    static $cache;
     $cache_key = "$p1,$p2";
     if (isset($cache[$cache_key])) {
       return $cache[$cache_key];
@@ -43,7 +44,7 @@ class Day21
           $rolls[] = $i + $j + $k;
           $p3 = new Player($p1->position + $roll);
           $p3->score = $p1->score + $p3->position + 1;
-          [$w2, $w1] = self::play($p2, $p3, $cache);
+          [$w2, $w1] = self::play($p2, $p3);
           $wins1 += $w1;
           $wins2 += $w2;
         }
