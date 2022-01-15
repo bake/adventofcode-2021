@@ -8,7 +8,8 @@ class Day08
   {
     while ($line = fgets($handle)) {
       $nums = explode(' ', $line);
-      $nums = array_map(fn ($num) => str_split(trim($num)), $nums);
+      $nums = array_map(trim(...), $nums);
+      $nums = array_map(str_split(...), $nums);
       array_walk($nums, fn (&$num) => sort($num));
       $signal = array_slice($nums, 0, 10);
       $output = array_slice($nums, 11, 4);
@@ -67,8 +68,8 @@ class Day08
         }
       }
 
-      $test = array_map(fn ($num) => implode('', $num), $test);
-      $output = array_map(fn ($num) => implode('', $num), $output);
+      $test = array_map(implode(...), $test);
+      $output = array_map(implode(...), $output);
       $test = array_flip($test);
       $output = array_map(fn ($num) => $test[$num], $output);
       $sum += (int) implode('', $output);

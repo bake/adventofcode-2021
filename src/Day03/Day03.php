@@ -7,7 +7,7 @@ class Day03
   public static function input($handle): iterable
   {
     while ($row = fgets($handle)) {
-      yield array_map(fn ($col) => (int) $col, str_split(trim($row)));
+      yield array_map(intval(...), str_split(trim($row)));
     }
   }
 

@@ -11,13 +11,13 @@ class Day04
     $boards = explode(PHP_EOL . PHP_EOL, trim($boards));
 
     $nums = explode(',', trim($nums));
-    $nums = array_map(fn ($num) => (int) $num, $nums);
+    $nums = array_map(intval(...), $nums);
 
     $boards = array_map(fn ($b) => explode(PHP_EOL, $b), $boards);
     $boards = array_map(fn ($b) => array_filter($b), $boards);
     $boards = array_map(fn ($b) => array_map(fn ($r) => str_replace('  ', ' ', trim($r)), $b), $boards);
     $boards = array_map(fn ($b) => array_map(fn ($r) => explode(' ', $r), $b), $boards);
-    $boards = array_map(fn ($b) => array_map(fn ($r) => array_map(fn ($c) => (int) $c, $r), $b,), $boards);
+    $boards = array_map(fn ($b) => array_map(fn ($r) => array_map(intval(...), $r), $b,), $boards);
 
     return [$nums, $boards];
   }
@@ -40,12 +40,12 @@ class Day04
 
   private static function win_board(array $board): bool
   {
-    $rs = array_map(fn ($r) => min($r), $board);
+    $rs = array_map(min(...), $board);
     $rs = array_filter($rs, fn ($r) => $r === INF);
     if (!empty($rs)) return true;
     $cs = array_map(fn ($i) => array_column($board, $i), range(0, count($board)));
     $cs = array_filter($cs);
-    $cs = array_map(fn ($r) => min($r), $cs);
+    $cs = array_map(min(...), $cs);
     $cs = array_filter($cs, fn ($r) => $r === INF);
     if (!empty($cs)) return true;
     return false;
